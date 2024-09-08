@@ -1,25 +1,19 @@
-import React, { useState } from 'react';
-import Login from './components/Login';
-import BlogCreate from './components/BlogCreate';
-import Dashboard from './components/Dashboard';
+import React from 'react';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import Signup from './pages/SignUp';
 
 function App() {
-  const [user, setUser] = useState(null); // Store logged-in user details
-  const [blogs, setBlogs] = useState([]); // Store blogs for the dashboard
-
   return (
-    
-    <div className="min-h-screen bg-gray-100 p-5">
-      <h1 className="text-3xl text-center font-bold mb-5">Blog App</h1>
-      
-      {!user ? (
-        <Login setUser={setUser} />
-      ) : (
-        <div>
-          <BlogCreate user={user} setBlogs={setBlogs} />
-          <Dashboard user={user} blogs={blogs} />
-        </div>
-      )}
+    <div className="min-h-screen bg-gray-100">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
