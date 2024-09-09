@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_URL = 'http://localhost:4000'; 
+const API_URL = import.meta.env.VITE_API_URL; 
 
 export const isLoggedIn = () => {
   return localStorage.getItem('token') !== null;
@@ -94,6 +94,26 @@ export const approveBlog = async (blogId, status, adminComment) => {
   }
   try {
     const response = await axios.post(`${API_URL}/blog/approve`, { blogId, status, adminComment }, {
+      headers: { Authorization: `${token}` }
+    });
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('userEmail');
+      throw new Error('Session expired. Please log in again.');
+    }
+    throw error;
+  }
+};
+
+export const addAdminComment = async (blogId, adminComment) => {
+  const token = getToken();
+  if (!token) {
+    throw new Error('User not authenticated');
+  }
+  try {
+    const response = await axios.post(`${API_URL}/blog/comment`, { blogId, adminComment }, {
       headers: { Authorization: `${token}` }
     });
     return response.data;

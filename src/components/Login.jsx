@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { login } from '../utils/auth';
+const API_URL = import.meta.env.VITE_API_URL; 
 
 function Login({ setUser }) {
   const [error, setError] = useState(null);
@@ -22,7 +23,7 @@ function Login({ setUser }) {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:4000/auth/google';
+    window.location.href = `${API_URL}/auth/google`;
   };
 
   return (

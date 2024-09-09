@@ -1,7 +1,7 @@
 import React from 'react';
 import { signup } from '../utils/auth';
 import { Link } from 'react-router-dom';
-
+const API_URL = import.meta.env.VITE_API_URL; 
 function Signup() {
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -16,7 +16,7 @@ function Signup() {
   };
 
   const handleGoogleSignup = () => {
-    window.location.href = 'http://localhost:4000/auth/google';
+    window.location.href = `${API_URL}/auth/google`;
   };
 
   return (
