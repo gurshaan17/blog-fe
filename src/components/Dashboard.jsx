@@ -5,7 +5,7 @@ function Dashboard({ user, blogs }) {
 
   useEffect(() => {
     const fetchBlogs = async () => {
-      const response = await fetch(`https://blog-be-mqm1.onrender.com/user/dashboard/${user._id}`, {
+      const response = await fetch(`http://localhost:4000/user/dashboard/${user._id}`, {
         credentials: 'include',
       });
       if (response.ok) {

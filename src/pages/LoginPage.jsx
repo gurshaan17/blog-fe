@@ -1,10 +1,12 @@
 import React from 'react';
 import Login from '../components/Login';
+import HeaderMain from '../components/Header';
 
 function LoginPage() {
   return (
     <div>
-      <Login />
+      <HeaderMain />
+      <Login/>
     </div>
   );
 }

@@ -1,23 +1,6 @@
 import React, { useState } from 'react';
 import { CgProfile } from 'react-icons/cg';
 import { Link } from 'react-router-dom';
-// const Link = ({ href, className, children }) => (
-//   <a href={href} className={className}>
-//     {children}
-//   </a>
-// );
-
-const DropdownMenu = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <div className="relative">
-      {React.cloneElement(children[0], {
-        onClick: () => setIsOpen(!isOpen),
-      })}
-      {isOpen && <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1">{children[1]}</div>}
-    </div>
-  );
-};
 
 const Button = ({ variant, size, className, children, onClick }) => (
   <button
@@ -45,44 +28,6 @@ const Card = ({ children }) => <div className="border rounded-lg overflow-hidden
 const Component = () => {
   return (
     <div className="flex min-h-screen flex-col bg-white text-gray-900">
-      <header className="sticky top-0 z-40 border-b bg-white">
-        <div className="container flex h-14 items-center justify-between px-4 md:px-6">
-          <Link href="#" className="flex items-center gap-2 font-semibold">
-            <BookIcon className="h-6 w-6" />
-            <span className="hidden sm:inline">Blog</span>
-          </Link>
-          <nav className="hidden gap-4 sm:flex">
-            <Link href="#" className="text-sm font-medium hover:underline hover:underline-offset-4">
-              Blog
-            </Link>
-            <Link href="#" className="text-sm font-medium hover:underline hover:underline-offset-4">
-              About
-            </Link>
-            <Link href="#" className="text-sm font-medium hover:underline hover:underline-offset-4">
-              Contact
-            </Link>
-          </nav>
-          <div className="flex items-center gap-2">
-            <DropdownMenu>
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <Avatar src="/placeholder-user.jpg" alt="Avatar" fallback="AC" />
-              </Button>
-              <div>
-                <Link href="#" className="block px-4 py-2 text-sm">
-                  Dashboard
-                </Link>
-                <hr className="my-1" />
-                <Link href="#" className="block px-4 py-2 text-sm">
-                  Logout
-                </Link>
-              </div>
-            </DropdownMenu>
-            <Link to='/login' variant="outline" size="sm">
-              Write
-            </Link>
-          </div>
-        </div>
-      </header>
       <main className="flex-1">
         <section className="bg-gray-100 py-12 md:py-24">
           <div className="container px-4 md:px-6">

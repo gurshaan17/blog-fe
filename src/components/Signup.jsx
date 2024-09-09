@@ -1,5 +1,6 @@
 import React from 'react';
 import { signup } from '../utils/auth';
+import { Link } from 'react-router-dom';
 
 function Signup() {
   const handleSubmit = async (event) => {
@@ -14,10 +15,21 @@ function Signup() {
     }
   };
 
+  const handleGoogleSignup = () => {
+    window.location.href = 'http://localhost:4000/auth/google';
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h2 className="text-2xl mb-4">Sign Up</h2>
+      <div className="bg-white p-36 rounded-lg shadow-lg">
+        <h2 className="text-2xl mb-4 flex justify-center pb-4">Sign Up</h2>
+        <button
+          className="bg-green-500 text-white py-2 px-4 rounded w-full mb-4"
+          onClick={handleGoogleSignup}
+        >
+          Sign up with Google
+        </button>
+        <div className="text-center mb-4">or</div>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block mb-2" htmlFor="email">Email</label>
@@ -27,8 +39,13 @@ function Signup() {
             <label className="block mb-2" htmlFor="password">Password</label>
             <input className="border w-full p-2 rounded" type="password" id="password" name="password" required />
           </div>
-          <button className="bg-blue-500 text-white py-2 px-4 rounded" type="submit">Sign Up</button>
+          <button className="bg-blue-500 text-white py-2 px-4 rounded w-full" type="submit">Sign Up</button>
         </form>
+        <div className="mt-4 text-center">
+          <Link to="/login" className="text-blue-500 hover:underline">
+            Existing user? Login
+          </Link>
+        </div>
       </div>
     </div>
   );
