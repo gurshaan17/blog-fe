@@ -37,8 +37,9 @@ const Component = () => {
                 Explore a wide range of topics and insights from our talented writers.
               </p>
               <div className="flex flex-col gap-2 sm:flex-row sm:justify-center">
-                <Input type="search" placeholder="Search blog posts..." className="w-full sm:w-auto" />
-                <Button>Search</Button>
+                <Link to='/all' className='text-3xl font-semibold text-decoration: underline'>
+                    Read our stories... 
+                </Link>
               </div>
             </div>
           </div>

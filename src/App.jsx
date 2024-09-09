@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage';
 import Signup from './pages/SignUp';
 import BlogCreate from './pages/BlogCreate';
 import AdminApprove from './pages/AdminApprove';
+import PublicBlogs from './pages/PublicBlogs';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path='/create' element={<BlogCreate/>}/>
           <Route path='/approve' element={<AdminApprove/>}/>
+          <Route path='/all' element={<PublicBlogs/>} />
         </Routes>
       </BrowserRouter>
     </div>
