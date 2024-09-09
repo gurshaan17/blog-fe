@@ -2,17 +2,6 @@ import React, { useState } from 'react';
 import { CgProfile } from 'react-icons/cg';
 import { Link } from 'react-router-dom';
 
-const Button = ({ variant, size, className, children, onClick }) => (
-  <button
-    className={`${variant === 'outline' ? 'border border-gray-300' : ''} ${
-      size === 'sm' ? 'px-2 py-1 text-sm' : 'px-4 py-2'
-    } ${className}`}
-    onClick={onClick}
-  >
-    {children}
-  </button>
-);
-
 const Avatar = () => (
     <div className='text-lg'>
         <CgProfile />

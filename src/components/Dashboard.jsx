@@ -1,37 +1,40 @@
 import React, { useEffect, useState } from 'react';
+import { getUserBlogs } from '../utils/auth';
 
-function Dashboard({ user, blogs }) {
-  const [userBlogs, setUserBlogs] = useState([]);
+const Dashboard = () => {
+  const [blogs, setBlogs] = useState([]);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchBlogs = async () => {
-      const response = await fetch(`http://localhost:4000/user/dashboard/${user._id}`, {
-        credentials: 'include',
-      });
-      if (response.ok) {
-        const blogs = await response.json();
-        setUserBlogs(blogs);
+      try {
+        const blogsData = await getUserBlogs();
+        setBlogs(blogsData);
+      } catch (err) {
+        setError(err.message || 'Failed to fetch blogs. Please try again.');
       }
     };
+
     fetchBlogs();
-  }, [user._id]);
+  }, []);
 
   return (
-    <div className="bg-white p-4 shadow rounded">
-      <h2 className="text-xl font-bold mb-4">Your Blogs</h2>
-      {userBlogs.length === 0 && <p>No blogs available</p>}
-      {userBlogs.map((blog) => (
-        <div key={blog._id} className="border p-4 mb-4">
-          <h3 className="text-lg font-bold">{blog.title}</h3>
-          <p>{blog.content}</p>
-          <p className={`font-bold ${blog.status === 'approved' ? 'text-green-500' : 'text-red-500'}`}>
-            Status: {blog.status}
-          </p>
-          {blog.comments && <p>Admin Comments: {blog.comments}</p>}
-        </div>
-      ))}
+    <div className="container mx-auto mt-10">
+      <h2 className="text-2xl font-semibold mb-4 text-center">Your Blogs</h2>
+      {error && <p className="text-red-600 text-center mb-4">{error}</p>}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {blogs.map((blog) => (
+          <div key={blog._id} className="bg-white p-6 shadow-lg rounded-lg">
+            <h3 className="text-xl font-bold mb-2">{blog.title}</h3>
+            <p className="text-gray-700 mb-4">{blog.content}</p>
+            <p className="text-gray-500 text-sm">Status: {blog.status}</p>
+            <p className="text-gray-500 text-sm">Admin Comment: {blog.adminComment}</p>
+            <p className="text-gray-500 text-sm">Created At: {new Date(blog.createdAt).toLocaleString()}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
-}
+};
 
 export default Dashboard;

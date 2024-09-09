@@ -116,8 +116,28 @@ export const getApprovedBlogs = async () => {
   }
 };
 
+export const getUserBlogs = async () => {
+  const token = getToken();
+  if (!token) {
+    throw new Error('User not authenticated');
+  }
+  try {
+    const response = await axios.get(`${API_URL}/blog/dashboard`, {
+      headers: { Authorization: `${token}` }
+    });
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('userEmail');
+      throw new Error('Session expired. Please log in again.');
+    }
+    throw error;
+  }
+};
+
 export const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userEmail');
-    window.location.href = '/';
-  };
+  localStorage.removeItem('token');
+  localStorage.removeItem('userEmail');
+  window.location.href = '/';
+};
