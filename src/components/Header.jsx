@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
+import { isLoggedIn, getUserEmail, logout } from '../utils/auth';
 
 const DropdownMenu = ({ children }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -51,44 +52,70 @@ const DropdownMenu = ({ children }) => {
   
 
 const HeaderMain = () => { 
-    return <header className="sticky top-0 z-40 border-b bg-white">
-        <div className="container flex h-14 items-center justify-between px-4 md:px-6">
-          <Link to="/" className="flex items-center gap-2 font-semibold">
-            <BookIcon className="h-6 w-6" />
-            <span className="hidden sm:inline">Blog</span>
-          </Link>
-          <nav className="hidden gap-4 sm:flex">
-            <Link href="#" className="text-sm font-medium hover:underline hover:underline-offset-4">
-              Blog
-            </Link>
-            <Link href="#" className="text-sm font-medium hover:underline hover:underline-offset-4">
-              About
-            </Link>
-            <Link href="#" className="text-sm font-medium hover:underline hover:underline-offset-4">
-              Contact
-            </Link>
-          </nav>
-          <div className="flex items-center gap-2">
-            <DropdownMenu>
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <Avatar src="/placeholder-user.jpg" alt="Avatar" fallback="AC" />
-              </Button>
-              <div>
-                <Link href="#" className="block px-4 py-2 text-sm">
-                  Dashboard
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [userEmail, setUserEmail] = useState('');
+
+    useEffect(() => {
+        setLoggedIn(isLoggedIn());
+        setUserEmail(getUserEmail());
+    }, []);
+
+    return (
+        <header className="sticky top-0 z-40 border-b bg-white">
+            <div className="container flex h-14 items-center justify-between px-4 md:px-6">
+              <Link to="/" className="flex items-center gap-2 font-semibold">
+                <BookIcon className="h-6 w-6" />
+                <span className="hidden sm:inline">Blog</span>
+              </Link>
+              <nav className="hidden gap-4 sm:flex">
+                <Link to="/" className="text-sm font-medium hover:underline hover:underline-offset-4">
+                  Blog
                 </Link>
-                <hr className="my-1" />
-                <Link href="#" className="block px-4 py-2 text-sm">
-                  Logout
+                <Link to="/about" className="text-sm font-medium hover:underline hover:underline-offset-4">
+                  About
                 </Link>
+                <Link to="/contact" className="text-sm font-medium hover:underline hover:underline-offset-4">
+                  Contact
+                </Link>
+              </nav>
+              <div className="flex items-center gap-2">
+                <DropdownMenu>
+                  <Button variant="ghost" size="icon" className="rounded-full">
+                    <Avatar />
+                  </Button>
+                  <div>
+                    {loggedIn ? (
+                      <>
+                        <div className="block px-4 py-2 text-sm font-semibold">{userEmail}</div>
+                        <Link to="/dashboard" className="block px-4 py-2 text-sm">
+                          Dashboard
+                        </Link>
+                        <hr className="my-1" />
+                        <button onClick={logout} className="block px-4 py-2 text-sm">
+                          Logout
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <Link to="/login" className="block px-4 py-2 text-sm">
+                          Login
+                        </Link>
+                        <Link to="/signup" className="block px-4 py-2 text-sm">
+                          Signup
+                        </Link>
+                      </>
+                    )}
+                  </div>
+                </DropdownMenu>
+                {loggedIn && (
+                  <Link to='/create' className="border border-gray-300 px-2 py-1 text-sm">
+                    Write
+                  </Link>
+                )}
               </div>
-            </DropdownMenu>
-            <Link to='/login' variant="outline" size="sm">
-              Write
-            </Link>
-          </div>
-        </div>
-      </header>
+            </div>
+          </header>
+    );
 }
 
 export default HeaderMain;
