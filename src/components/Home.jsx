@@ -30,6 +30,11 @@ const Component = () => {
                     Read our stories... 
                 </Link>
               </div>
+              <div>
+                <Link to='/approve' className='text-xl text-decoration: underline'>
+                    If you are admin, then click for admin panel
+                </Link>
+              </div>
             </div>
           </div>
         </section>
@@ -39,20 +44,14 @@ const Component = () => {
               {
                 title: "Mastering React: A Comprehensive Guide",
                 author: "John Doe",
-                date: "April 15, 2023",
+                date: "September 9, 2024",
                 content: "In this comprehensive guide, we'll dive deep into the world of React, exploring its core concepts, best practices, and advanced techniques to help you become a proficient React developer.",
               },
               {
                 title: "Unleashing the Power of CSS Grid",
                 author: "Jane Smith",
-                date: "April 10, 2023",
+                date: "September 8, 2024",
                 content: "Discover the power of CSS Grid and learn how to create complex, responsive layouts with ease. This article covers the fundamentals, advanced techniques, and real-world examples to help you master this powerful CSS feature.",
-              },
-              {
-                title: "Optimizing Website Performance: A Practical Guide",
-                author: "Emily Johnson",
-                date: "April 5, 2023",
-                content: "In this comprehensive guide, we'll explore various techniques and strategies to optimize your website's performance, from image optimization to code minification and beyond. Improve your site's speed and provide a seamless user experience.",
               },
             ].map((post, index) => (
               <Card key={index}>
@@ -70,7 +69,7 @@ const Component = () => {
                 </div>
                 <div className="p-4">
                   <Link
-                    href="#"
+                    to='/all'
                     className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:underline"
                   >
                     Read More

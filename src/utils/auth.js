@@ -34,6 +34,8 @@ export const signup = async (email, password) => {
 export const googleLogin = async (token) => {
   const response = await axios.post(`${API_URL}/auth/google`, { idToken: token });
   if (response.data && response.data.token) {
+    console.log(response.data.token)
+    console.log(response.data.email)
     localStorage.setItem('token', response.data.token);
     localStorage.setItem('userEmail', response.data.email);
   }
@@ -70,7 +72,7 @@ export const createBlog = async (title, content) => {
 export const getAllBlogs = async () => {
   const token = getToken();
   if (!token) {
-    throw new Error('User not authenticated');
+    throw new Error('Only admins can access');
   }
   try {
     const response = await axios.get(`${API_URL}/blog/all`, {

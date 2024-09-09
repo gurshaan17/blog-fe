@@ -71,11 +71,8 @@ const HeaderMain = () => {
                 <Link to="/" className="text-sm font-medium hover:underline hover:underline-offset-4">
                   Blog
                 </Link>
-                <Link to="/about" className="text-sm font-medium hover:underline hover:underline-offset-4">
-                  About
-                </Link>
-                <Link to="/contact" className="text-sm font-medium hover:underline hover:underline-offset-4">
-                  Contact
+                <Link to="/dashboard" className="text-sm font-medium hover:underline hover:underline-offset-4">
+                  Dashboard
                 </Link>
               </nav>
               <div className="flex items-center gap-2">
