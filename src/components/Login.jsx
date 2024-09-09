@@ -6,10 +6,8 @@ const API_URL = import.meta.env.VITE_API_URL;
 function Login({ setUser }) {
   const [error, setError] = useState(null);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event, email, password) => {
     event.preventDefault();
-    const email = event.target.email.value;
-    const password = event.target.password.value;
     try {
       const userData = await login(email, password);
       if (typeof setUser === 'function') {
@@ -26,6 +24,14 @@ function Login({ setUser }) {
     window.location.href = `${API_URL}/auth/google`;
   };
 
+  const handleAdminLogin = (event) => {
+    handleSubmit(event, 'admin@gmail.com', 'admin');
+  };
+
+  const handleUserLogin = (event) => {
+    handleSubmit(event, 'test123@gmail.com', 'test');
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-white p-36 rounded-lg shadow-lg">
@@ -38,7 +44,7 @@ function Login({ setUser }) {
           Log in with Google
         </button>
         <div className="text-center mb-4">or</div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => handleSubmit(e, e.target.email.value, e.target.password.value)}>
           <div className="mb-4">
             <label className="block mb-2" htmlFor="email">Email</label>
             <input className="border w-full p-2 rounded" type="email" id="email" name="email" required />
@@ -53,6 +59,23 @@ function Login({ setUser }) {
           <Link to="/signup" className="text-blue-500 hover:underline">
             New user? Sign up
           </Link>
+        </div>
+        <div className="mt-4 text-center">
+          <button
+            className="bg-gray-500 text-white py-2 px-4 rounded w-full mb-2"
+            onClick={handleAdminLogin}
+          >
+            Login as Admin
+          </button>
+          <button
+            className="bg-gray-500 text-white py-2 px-4 rounded w-full"
+            onClick={handleUserLogin}
+          >
+            Login as User
+          </button>
+          <div className='pt-5'>
+            (You can always login after creating a new user)
+          </div>
         </div>
       </div>
     </div>

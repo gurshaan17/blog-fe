@@ -46,6 +46,9 @@ function Signup() {
             Existing user? Login
           </Link>
         </div>
+        <div className='pt-5'>
+            (You have to go to login page after registering a new user)
+          </div>
       </div>
     </div>
   );
