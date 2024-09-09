@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import Signup from './pages/SignUp';
 import BlogCreate from './pages/BlogCreate';
+import AdminApprove from './pages/AdminApprove';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<Signup />} />
           <Route path='/create' element={<BlogCreate/>}/>
+          <Route path='/approve' element={<AdminApprove/>}/>
         </Routes>
       </BrowserRouter>
     </div>
