@@ -5,6 +5,7 @@ const AllBlogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [error, setError] = useState('');
   const [adminComments, setAdminComments] = useState({});
+  const [expandedBlogs, setExpandedBlogs] = useState({});
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -44,52 +45,71 @@ const AllBlogs = () => {
     }));
   };
 
+  const toggleExpand = (blogId) => {
+    setExpandedBlogs((prevExpanded) => ({
+      ...prevExpanded,
+      [blogId]: !prevExpanded[blogId],
+    }));
+  };
+
   return (
-    <div className="container mx-auto mt-10">
+    <div className="container mx-auto mt-10 px-4">
       <h2 className="text-2xl font-semibold mb-4 text-center">All Blogs</h2>
       {error && <p className="text-red-600 text-center mb-4">{error}</p>}
-      <table className="min-w-full bg-white">
-        <thead>
-          <tr>
-            <th className="py-2 px-4 border-b">Title</th>
-            <th className="py-2 px-4 border-b">Content</th>
-            <th className="py-2 px-4 border-b">Author</th>
-            <th className="py-2 px-4 border-b">Status</th>
-            <th className="py-2 px-4 border-b">Admin Comment</th>
-            <th className="py-2 px-4 border-b">Created At</th>
-          </tr>
-        </thead>
-        <tbody>
-          {blogs.map((blog) => (
-            <tr key={blog._id}>
-              <td className="py-2 px-4 border-b">{blog.title}</td>
-              <td className="py-2 px-4 border-b">{blog.content}</td>
-              <td className="py-2 px-4 border-b">{blog.author.email}</td>
-              <td className="py-2 px-4 border-b">
-                <select
-                  value={blog.status}
-                  onChange={(e) => handleStatusChange(blog._id, e.target.value)}
-                  className="border p-2 rounded"
-                >
-                  <option value="pending">Pending</option>
-                  <option value="approved">Approved</option>
-                  <option value="rejected">Rejected</option>
-                </select>
-              </td>
-              <td className="py-2 px-4 border-b">
-                <input
-                  type="text"
-                  value={adminComments[blog._id] || ''}
-                  onChange={(e) => handleAdminCommentChange(blog._id, e.target.value)}
-                  placeholder="Add a comment"
-                  className="border p-2 rounded"
-                />
-              </td>
-              <td className="py-2 px-4 border-b">{new Date(blog.createdAt).toLocaleString()}</td>
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white">
+          <thead>
+            <tr>
+              <th className="py-2 px-4 border-b">Title</th>
+              <th className="py-2 px-4 border-b">Content</th>
+              <th className="py-2 px-4 border-b">Author</th>
+              <th className="py-2 px-4 border-b">Status</th>
+              <th className="py-2 px-4 border-b">Admin Comment</th>
+              <th className="py-2 px-4 border-b">Created At</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {blogs.map((blog) => (
+              <tr key={blog._id}>
+                <td className="py-2 px-4 border-b">{blog.title}</td>
+                <td className="py-2 px-4 border-b">
+                  {expandedBlogs[blog._id] ? blog.content : `${blog.content.substring(0, 100)}...`}
+                  {blog.content.length > 100 && (
+                    <button
+                      onClick={() => toggleExpand(blog._id)}
+                      className="text-blue-500 hover:underline ml-2"
+                    >
+                      {expandedBlogs[blog._id] ? 'View Less' : 'View More'}
+                    </button>
+                  )}
+                </td>
+                <td className="py-2 px-4 border-b">{blog.author.email}</td>
+                <td className="py-2 px-4 border-b">
+                  <select
+                    value={blog.status}
+                    onChange={(e) => handleStatusChange(blog._id, e.target.value)}
+                    className="border p-2 rounded"
+                  >
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                  </select>
+                </td>
+                <td className="py-2 px-4 border-b">
+                  <input
+                    type="text"
+                    value={adminComments[blog._id] || ''}
+                    onChange={(e) => handleAdminCommentChange(blog._id, e.target.value)}
+                    placeholder="Add a comment"
+                    className="border p-2 rounded"
+                  />
+                </td>
+                <td className="py-2 px-4 border-b">{new Date(blog.createdAt).toLocaleString()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
