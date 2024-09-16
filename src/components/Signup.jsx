@@ -23,12 +23,6 @@ function Signup() {
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-white p-36 rounded-lg shadow-lg">
         <h2 className="text-2xl mb-4 flex justify-center pb-4">Sign Up</h2>
-        <button
-          className="bg-green-500 text-white py-2 px-4 rounded w-full mb-4"
-          onClick={handleGoogleSignup}
-        >
-          Sign up with Google
-        </button>
         <div className="text-center mb-4">or</div>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">

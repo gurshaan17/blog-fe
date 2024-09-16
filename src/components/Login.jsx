@@ -37,12 +37,6 @@ function Login({ setUser }) {
       <div className="bg-white p-36 rounded-lg shadow-lg">
         <h2 className="text-2xl mb-4 flex justify-center pb-4">Log In</h2>
         {error && <div className="text-red-500 mb-4">{error}</div>}
-        <button
-          className="bg-green-500 text-white py-2 px-4 rounded w-full mb-4"
-          onClick={handleGoogleLogin}
-        >
-          Log in with Google
-        </button>
         <div className="text-center mb-4">or</div>
         <form onSubmit={(e) => handleSubmit(e, e.target.email.value, e.target.password.value)}>
           <div className="mb-4">
